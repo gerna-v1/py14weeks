@@ -39,10 +39,11 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares): #
                 if temp[i] != '\n': #chequear si la ultima letra es \n para no agregar una newline de mas
                     mod.append(temp[i].strip() + '\n')
             cont = len(mod)
+            fechaTemp = tiempoActual('tiempo')
             archivo = open('semanas.txt', 'w')
             for i in range (0, cont + 1):
                 if i == cont:
-                    escribir = 'En la semana ' + str(cont+1) + ' (D' + str(diaActual) + '/M' + str(mesActual) + ')' + ' tuviste ' + str(dolares) + '$'
+                    escribir = 'En la semana ' + str(cont + 1) + ' (D' + str(diaActual) + '/M' + str(mesActual) + ')' + ', cargado a las ' + str(fechaTemp[0]) + ':' + str(fechaTemp[1]) + ', ahorraste ' + str(dolares) + '$'
                     archivo.write(escribir)
                 else:
                     if temp[i] != '\n':
@@ -60,9 +61,10 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares): #
                     mod.append(temp[i].strip() + '\n')
             cont = len(mod)
             archivo = open('semanas.txt', 'w')
+            fechaTemp = tiempoActual('tiempo')
             for i in range(0, cont + 1):
                 if i == cont:
-                    escribir = 'En la semana ' + str(cont + 1) + ' (D' + str(diaActual) + '/M' + str(mesActual) + ')' + ' tuviste ' + str(dolares) + '$'
+                    escribir = 'En la semana ' + str(cont + 1) + ' (D' + str(diaActual) + '/M' + str(mesActual) + ')' + ', cargado a las ' + str(fechaTemp[0]) + ':' + str(fechaTemp[1]) + ', ahorraste ' + str(dolares) + '$'
                     archivo.write(escribir)
                 else:
                     if temp[i] != '\n':
@@ -100,10 +102,11 @@ try:
 
         temp = tiempoActual('fecha')
         temp2 = file.leer('fecha', True)
-
+        tiemp = file.leer('tiempo', True)
         cont = 0
         if file.contar('retornar') > 0:
-            rotar = matematica(temp[0],temp2[0],temp[1],temp2[1],horario.comparacion(temp2[1]),dolares)
+
+            rotar = matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1]),dolares)
             if rotar:
                 sys.exit()
             for i in range(0,2):
@@ -116,7 +119,7 @@ try:
         else:
             file.escribir('fecha',True)
             archivo0 = open('semanas.txt', 'w')
-            archivo0.write('En la semana ' + str(1) + ' tuviste ' + str(dolares) + '$')
+            archivo0.write('En la semana ' + str(1) + '(D' + temp[0] + '/M' + temp[1] + ') ' + ', cargado a las ' + tiemp[0] + ':' + tiemp[1] + ', ahorraste ' + str(dolares) + '$')
             archivo0.close()
             file.contar('contar')
 

@@ -7,6 +7,9 @@ def primera(): #Funcion a ser usada cuando se inicia el codigo por primera vez
             archivo.close()
             escribir('fecha', True)
             contar('contar')
+            archivo3 = open('tiempo.txt', 'x')
+            escribir('tiempo', True)
+            archivo3.close
         except:
             escribir('fecha', True)
         try:
