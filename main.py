@@ -7,15 +7,15 @@ from FIRST import primera
 # funciones disponibles:
 # tiempoActual(chequeo), leer(nombre, t), escribir(nombre, t)
 # contar(accion), ahorro(suma, accion), primera(), comparacion(mes)
-def limpiar():
+def limpiar(): #Me parece fea la funcion de limpiar pantalla en python
     os.system('cls')
-def convertir(precio, monto):
+def convertir(precio, monto): #Bolivares a dolares
     dolares = monto // precio
     return dolares
-def convertirReversa(precio, monto):
+def convertirReversa(precio, monto): #Dolares a bolivares
     dolares = precio * monto
     return dolares
-def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares):
+def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares): #Guarda una nueva semana si se accede una semana despues de la última carga
 
     if mesActual != mesArchivo:
         if mesRef == 1:

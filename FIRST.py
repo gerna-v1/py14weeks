@@ -1,6 +1,6 @@
 from tiempo import tiempoActual
 from file import escribir, contar
-def primera():
+def primera(): #Funcion a ser usada cuando se inicia el codigo por primera vez
     try:
         try:
             archivo = open('fecha.txt', 'x')

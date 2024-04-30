@@ -1,6 +1,5 @@
 from tiempo import tiempoActual
-# FALTA FUNCION PARA COMPROBAR LOS DIAS
-def escribir(nomArchivo, t):
+def escribir(nomArchivo, t): #Sobreescribe o crea el contenedor de la fecha
     variante = nomArchivo
     if nomArchivo.lower() == 'fecha' or nomArchivo.lower() == 'tiempo':
         if t:
@@ -16,7 +15,7 @@ def escribir(nomArchivo, t):
         archivo.close()
     else:
         return None
-def leer(nomArchivo, t):
+def leer(nomArchivo, t): #Lee y retorna los contenidos del archivo de fecha
     try:
         if t:
             archivo = open(str(nomArchivo)+'.txt', 'r')
@@ -35,7 +34,7 @@ def leer(nomArchivo, t):
         #FALTA FUNCION PARA COMPARAR CON UN HORARIO
     except FileNotFoundError:
         print('Error: Archivo inexistente')
-def contar(accion):
+def contar(accion): #Agrega uno al contador global o retorna el valor actual
     if accion.lower() == 'contar':
         archivo = open('cont.txt', 'r')
         lectura = archivo.readlines()
@@ -51,7 +50,7 @@ def contar(accion):
         cont = int(lectura[0])
         archivo.close
         return cont
-def ahorro(suma, accion):
+def ahorro(suma, accion): #Va sumando al archivo de ahorro o lee lo que se lleva
     if accion.lower() == 'escritura':
         archivo = open('ahorro.txt', 'r')
         lectura = archivo.readlines()
