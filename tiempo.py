@@ -1,6 +1,6 @@
 import datetime
 
-def tiempoActual(chequeo):
+def tiempoActual(chequeo): #Regresa una lista con la fecha o hora actual
 
     ahora = str(datetime.datetime.now())
     ahora2 = ahora.split(sep='-',maxsplit=3)
