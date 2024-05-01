@@ -7,6 +7,7 @@ Se debe utilizar solamente cada 7 dias o si no no guardará los archivos
 La primera vez que se abra el programa creara los archivos necesarios y se deberá correr una segunda vez
 
 - TODO:
-- Habilitar funcionamiento del mes de febrero
+- ~~Habilitar funcionamiento del mes de febrero~~
 - Agregar excepcion si no han pasado mas de 7 dias desde la última carga
 - Utilizar paths para mejor organización de archivos
+- Agregar script para eliminar todos los registros y empezar desde 0
