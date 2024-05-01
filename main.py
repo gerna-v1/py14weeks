@@ -88,7 +88,7 @@ try:
         tiemp = file.leer('tiempo', True)
         cont = 0
         if file.contar('retornar') > 0:
-            rotar = matematica(7,28,3,2,horario.comparacion(2, '2025'),dolares)
+            rotar = matematica(temp[0],temp2[0],temp[1],temp2[1],horario.comparacion(temp2[1]),dolares)
             if rotar:
                 sys.exit()
             for i in range(0,2):
