@@ -15,6 +15,16 @@ def convertir(precio, monto): #Bolivares a dolares
 def convertirReversa(precio, monto): #Dolares a bolivares
     dolares = precio * monto
     return dolares
+def guia():
+    file = open('guia.txt', 'r')
+    read = file.readlines()
+    mod = []
+    for line in read:
+        if line not in mod:
+         mod.append(line.strip())
+
+    for i in range (0,7):
+        print(mod[i])
 def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, escribir=True): #Guarda una nueva semana si se accede una semana despues de la última carga
 
     if not (diaActual == diaArchivo and mesActual == mesArchivo):
@@ -96,9 +106,10 @@ try:
         limpiar()
         print('1. Subir el ahorro')
         print('2. Ver el registro semanal')
-        print('3. Salir')
+        print('3. Guia')
+        print('4. Salir')
         opcion = int(input('Que desea hacer?: '))
-        if (opcion >= 1 and opcion <= 3):
+        if (opcion >= 1 and opcion <= 4):
             break
         else:
             continue
@@ -135,7 +146,7 @@ try:
         else:
             file.escribir('fecha',True)
             archivo0 = open('semanas.txt', 'w')
-            archivo0.write('En la semana ' + str(1) + '(D' + temp[0] + '/M' + temp[1] + ') ' + ', cargado a las ' + tiemp[0] + ':' + tiemp[1] + ', ahorraste ' + str(dolares) + '$')
+            archivo0.write('En la semana ' + str(1) + ' (D' + str(int(temp[0])) + '/M' + str(int(temp[1])) + ')' + ', cargado a las ' + tiemp[0] + ':' + tiemp[1] + ', ahorraste ' + str(dolares) + '$')
             archivo0.close()
             file.contar('contar')
 
@@ -167,6 +178,9 @@ try:
                     cont = cont + 1
         else:
             print('No ha cargado ningun ahorro')
+    elif opcion == 3:
+        limpiar()
+        guia()
     time.sleep(7)
 except Exception as e:
     logging.error('Error at %s', exc_info=e) #esto lo copie de stackoverflow
