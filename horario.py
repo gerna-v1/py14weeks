@@ -16,16 +16,16 @@ def meses29(mes,ano):
             return '2'
 
 def comparacion(mes,ano='2024'):
-    if meses31(mes):
+    if meses31(int(mes)):
         resultado = 1 #resultado es 1 si el mes termina en 31
         return resultado
-    elif meses30(mes):
+    elif meses30(int(mes)):
         resultado = 2 #resultado es 2 si el mes termina en 30
         return resultado
-    elif meses29(mes,ano) == '1':
+    elif meses29(int(mes),ano) == '1':
         resultado = 3 #resultado es 3 si el mes febrero termina en 29
         return resultado
-    elif meses29(mes,ano) == '2':
+    elif meses29(int(mes),ano) == '2':
         resultado = 4 #resultado es 4 si el mes febrero termina en 28
         return resultado
     else:

@@ -15,46 +15,73 @@ def convertir(precio, monto): #Bolivares a dolares
 def convertirReversa(precio, monto): #Dolares a bolivares
     dolares = precio * monto
     return dolares
-def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares): #Guarda una nueva semana si se accede una semana despues de la última carga
+def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, escribir=True): #Guarda una nueva semana si se accede una semana despues de la última carga
 
-    if mesActual != mesArchivo:
-        if mesRef == 1:
-            referencia = 31
-        elif mesRef == 2:
-            referencia = 30
-        elif mesRef == 3:
-            referencia = 29
-        elif mesRef == 4:
-            referencia = 28
-        else:
-            referencia = 0
-        diferenciaTemp = (int(diaArchivo) + 7)
-        diferencia = (diferenciaTemp - referencia)
-    else:
-        diferencia = (int(diaArchivo) + 7)
-
-    if diferencia == diaActual:
-        # SI EL DIA ACTUAL ESTA SEPARADO POR 7 DIAS DEL DIA GUARDADO, SE GUARDA UNA NUEVA SEMANA EN SEMANAS
-        file.escribir('fecha',True) # Se sobreescribe la fecha guardada
-        archivo = open('semanas.txt', 'r')
-        temp = archivo.readlines()
-        archivo.close()  #probablemente como detecta \n como un string mas dentro de la lista lo corre de mas en el bucle
-        mod = []
-        conttemp = len(temp)
-        for i in range (0,conttemp):
-            if temp[i] != '\n':  #chequear si la ultima letra es \n para no agregar una newline de mas
-                mod.append(temp[i].strip() + '\n')
-        cont = len(mod)
-        fechaTemp = tiempoActual('tiempo')
-        archivo = open('semanas.txt', 'w')
-        for i in range (0, cont + 1):
-            if i == cont:
-                escribir = 'En la semana ' + str(cont + 1) + ' (D' + str(diaActual) + '/M' + str(mesActual) + ')' + ', cargado a las ' + str(fechaTemp[0]) + ':' + str(fechaTemp[1]) + ', ahorraste ' + str(dolares) + '$'
-                archivo.write(escribir)
+    if not (diaActual == diaArchivo and mesActual == mesArchivo):
+        if mesActual != mesArchivo:
+            if mesRef == 1:
+                referencia = 31
+                hay = True
+            elif mesRef == 2:
+                referencia = 30
+                hay = True
+            elif mesRef == 3:
+                referencia = 29
+                hay = True
+            elif mesRef == 4:
+                referencia = 28
+                hay = True
             else:
-                if temp[i] != '\n':
-                    archivo.write(mod[i])
-        archivo.close()
+                referencia = 0
+            diferenciaTemp = (int(diaArchivo) + 7)
+            diferencia = (diferenciaTemp - referencia)
+        else:
+            diferencia = (int(diaArchivo) + 7)
+            hay = False
+        if escribir==True:
+            if diferencia == diaActual:
+                # SI EL DIA ACTUAL ESTA SEPARADO POR 7 DIAS DEL DIA GUARDADO, SE GUARDA UNA NUEVA SEMANA EN SEMANAS
+                file.escribir('fecha',True) # Se sobreescribe la fecha guardada
+                archivo = open('semanas.txt', 'r')
+                temp = archivo.readlines()
+                archivo.close()  #probablemente como detecta \n como un string mas dentro de la lista lo corre de mas en el bucle
+                mod = []
+                conttemp = len(temp)
+                for i in range (0,conttemp):
+                    if temp[i] != '\n':  #chequear si la ultima letra es \n para no agregar una newline de mas
+                        mod.append(temp[i].strip() + '\n')
+                cont = len(mod)
+                fechaTemp = tiempoActual('tiempo')
+                archivo = open('semanas.txt', 'w')
+                for i in range (0, cont + 1):
+                    if i == cont:
+                        escribir = 'En la semana ' + str(cont + 1) + ' (D' + str(diaActual) + '/M' + str(mesActual) + ')' + ', cargado a las ' + str(fechaTemp[0]) + ':' + str(fechaTemp[1]) + ', ahorraste ' + str(dolares) + '$'
+                        archivo.write(escribir)
+                    else:
+                        if temp[i] != '\n':
+                            archivo.write(mod[i])
+                archivo.close()
+        else:
+            if not (diferencia == diaActual):
+                if hay:
+                    mes = (' del mes ' + str(mesActual)) #MUESTRA EL MES MALO, ARREGLAR URGENTEMENTE
+                else:
+                    mes = ' de este mes'
+                limpiar()
+                print('Por favor inicie el programa el día ' + str(diferencia) + mes)
+                print('El programa se cerrará en\n')
+                for i in range (10,0,-1):
+                    print(i,)
+                    time.sleep(1)
+                sys.exit()
+    else:
+        print('Por favor espere una semana para volver a cargar el ahorro\n')
+        print('El programa se cerrará en\n')
+        for i in range(10, 0, -1):
+            print(i, )
+            time.sleep(1)
+        sys.exit()
+
 # empieza el algoritmo
 try:
     if file.contar('retornar') == -1:
@@ -75,6 +102,14 @@ try:
             continue
     if opcion == 1:
         final = 60
+
+        temp = tiempoActual('fecha')
+        temp2 = file.leer('fecha', True)
+        tiemp = file.leer('tiempo', True)
+        cont = 0
+
+        matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1],temp2[2]), 0, False)
+
         ahorrado = file.ahorro(0,'lectura')
         precio = int(input("Ingrese el precio del dolar: "))
         monto = int(input("Ingrese el monto en bs: "))
@@ -83,10 +118,7 @@ try:
         conjunto = dolares + ahorrado
         print("Sus", str(monto), "bs tambien son aproximadamente", str(dolares), "$")
 
-        temp = tiempoActual('fecha')
-        temp2 = file.leer('fecha', True)
-        tiemp = file.leer('tiempo', True)
-        cont = 0
+
         if file.contar('retornar') > 0:
             rotar = matematica(temp[0],temp2[0],temp[1],temp2[1],horario.comparacion(temp2[1]),dolares)
             if rotar:
@@ -104,7 +136,6 @@ try:
             archivo0.write('En la semana ' + str(1) + '(D' + temp[0] + '/M' + temp[1] + ') ' + ', cargado a las ' + tiemp[0] + ':' + tiemp[1] + ', ahorraste ' + str(dolares) + '$')
             archivo0.close()
             file.contar('contar')
-
 
     #implementar comparacion con el dia actual
         if conjunto < final:
