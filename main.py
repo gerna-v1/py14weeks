@@ -75,7 +75,8 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, es
                     time.sleep(1)
                 sys.exit()
     else:
-        if file.contar('contar') >= 1:
+        if file.contar('retornar') >= 1:
+            limpiar()
             print('Por favor espere una semana para volver a cargar el ahorro\n')
             print('El programa se cerrará en\n')
             for i in range(10, 0, -1):
