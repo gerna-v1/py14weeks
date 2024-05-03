@@ -75,12 +75,13 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, es
                     time.sleep(1)
                 sys.exit()
     else:
-        print('Por favor espere una semana para volver a cargar el ahorro\n')
-        print('El programa se cerrará en\n')
-        for i in range(10, 0, -1):
-            print(i, )
-            time.sleep(1)
-        sys.exit()
+        if file.contar('contar') >= 1:
+            print('Por favor espere una semana para volver a cargar el ahorro\n')
+            print('El programa se cerrará en\n')
+            for i in range(10, 0, -1):
+                print(i, )
+                time.sleep(1)
+            sys.exit()
 
 # empieza el algoritmo
 try:
