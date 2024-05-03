@@ -4,4 +4,4 @@ Permite subir el dinero que has ahorrado al final de la semana, en dolares y bol
 
 Solo se puede cargar una semana despues de subir el anterior, asi que pon una alarma para recordarte!
 
-En todo momento se puede visualizar cuanto se ha cargado cada semana, sin embargo solo se puede editar una semana despues de la ultima carga
+En cualquier momento se puede visualizar cuanto se ha cargado cada semana, sin embargo solo se puede editar una semana despues de la ultima carga
