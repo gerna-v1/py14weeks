@@ -1,6 +1,16 @@
-import os, sys, time, file, horario, logging
-from tiempo import tiempoActual
-from FIRST import primera
+import os, sys, time, logging
+sys.path.append('scripts')
+from scripts.FIRST import primera, segunda
+from scripts.tiempo import tiempoActual
+from scripts import file, horario
+
+if file.contar('retornar') == -1:
+    primera()
+    print('La aplicacion se ha configurado, por favor iniciela de nuevo')
+    segunda()
+    time.sleep(7)
+    sys.exit()
+
 # Todas las variables variantes se refieren
 # a la variacion de fecha (d/m/a) u tiempo (h/m/s)
 
@@ -51,8 +61,8 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, es
         if escribir==True:
             if diferencia == diaActual:
                 # SI EL DIA ACTUAL ESTA SEPARADO POR 7 DIAS DEL DIA GUARDADO, SE GUARDA UNA NUEVA SEMANA EN SEMANAS
-                file.escribir('fecha',True) # Se sobreescribe la fecha guardada
-                archivo = open('semanas.txt', 'r')
+                file.escribir('fecha', True) # Se sobreescribe la fecha guardada
+                archivo = open('.\\data\\semanas.txt', 'r')
                 temp = archivo.readlines()
                 archivo.close()  #probablemente como detecta \n como un string mas dentro de la lista lo corre de mas en el bucle
                 mod = []
@@ -62,7 +72,7 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, es
                         mod.append(temp[i].strip() + '\n')
                 cont = len(mod)
                 fechaTemp = tiempoActual('tiempo')
-                archivo = open('semanas.txt', 'w')
+                archivo = open('.\\data\\semanas.txt', 'w')
                 for i in range (0, cont + 1):
                     if i == cont:
                         escribir = 'En la semana ' + str(cont + 1) + ' (D' + str(diaActual) + '/M' + str(mesActual) + ')' + ', cargado a las ' + str(fechaTemp[0]) + ':' + str(fechaTemp[1]) + ', ahorraste ' + str(dolares) + '$'
@@ -96,11 +106,6 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, es
 
 # empieza el algoritmo
 try:
-    if file.contar('retornar') == -1:
-        primera()
-        print('La aplicacion se ha configurado, por favor iniciela de nuevo')
-        time.sleep(7)
-        sys.exit()
     opcion = 0
     while True: # NO LOGRE HACER QUE CORRIERA CON LA CONDICION DEL IF AQUI
         limpiar()
@@ -121,19 +126,19 @@ try:
         tiemp = file.leer('tiempo', True)
         cont = 0
 
-        matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1],temp2[2]), 0, False)
+        matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1], temp2[2]), 0, False)
 
-        ahorrado = file.ahorro(0,'lectura')
+        ahorrado = file.ahorro(0, 'lectura')
         precio = int(input("Ingrese el precio del dolar: "))
         monto = int(input("Ingrese el monto en bs: "))
         dolares = convertir(precio, monto)
-        file.ahorro(dolares,'escritura')
+        file.ahorro(dolares, 'escritura')
         conjunto = dolares + ahorrado
         print("Sus", str(monto), "bs tambien son aproximadamente", str(dolares), "$")
 
 
         if file.contar('retornar') > 0:
-            rotar = matematica(temp[0],temp2[0],temp[1],temp2[1],horario.comparacion(temp2[1]),dolares)
+            rotar = matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1]), dolares)
             if rotar:
                 sys.exit()
             for i in range(0,2):
@@ -144,8 +149,8 @@ try:
                     temp2.append(temp2[i])
             file.contar('contar')
         else:
-            file.escribir('fecha',True)
-            archivo0 = open('semanas.txt', 'w')
+            file.escribir('fecha', True)
+            archivo0 = open('.\\data\\semanas.txt', 'w')
             archivo0.write('En la semana ' + str(1) + ' (D' + str(int(temp[0])) + '/M' + str(int(temp[1])) + ')' + ', cargado a las ' + tiemp[0] + ':' + tiemp[1] + ', ahorraste ' + str(dolares) + '$')
             archivo0.close()
             file.contar('contar')
@@ -163,7 +168,7 @@ try:
     elif opcion == 2:
         limpiar()
         if file.contar('retornar') > 0:
-            lineas = open('semanas.txt', 'r')
+            lineas = open('.\\data\\semanas.txt', 'r')
             array = lineas.readlines()
             mod = []
             cont = 0
