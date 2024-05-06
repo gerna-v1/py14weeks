@@ -30,9 +30,25 @@ def primera(): #Funcion a ser usada cuando se inicia el codigo por primera vez
     except:
         return False
 
-def segunda():
+def segunda(eleccion, meta):
     try:
         shutil.copy('cont.txt', '.\\data\\')
         os.remove('cont.txt')
+        archivo2 = open('.\\data\\eleccion.txt', 'w')
+        archivo2.writelines(eleccion)
+        archivo2.close
+
+        archivo3 = open('.\\data\\meta.txt', 'w')
+        archivo3.writelines(str(meta))
+        archivo3.close
+    except Exception as e:
+        print(e)
+
+def ultima():
+    try:
+        shutil.rmtree('.\\data')
+        otravez = open('.\\cont.txt', 'w')
+        otravez.writelines(str(-1))
+        otravez.close
     except Exception as e:
         print(e)

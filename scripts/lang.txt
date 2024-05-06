@@ -1,0 +1,56 @@
+1. Subir el ahorro
+2. Ver el registro semanal
+3. Eliminar el registro
+4. Guia de uso
+5. Salir
+Que desea hacer?:
+Ingrese el precio del dolar:
+Ingrese el monto en bs:
+Sus
+bs tambien son aproximadamente
+En la semana
+, cargado a las
+, ahorraste
+Te faltan
+o
+para llegar a los
+Presione cualquier tecla para continuar
+Felicidades! Ya sobrepaso los
+$ con un extra de
+No ha cargado ningun ahorro
+Se borraran todos los registros y el programa iniciara desde cero
+Estas seguro de esta decision?
+S/N
+del mes
+de este mes
+Por favor inicie el programa el dia
+El programa se cerrara en...
+Por favor espere una semana para volver a cargar el ahorro
+1. Upload savings
+2. View weekly records
+3. Delete all records
+4. User guide
+5. Exit
+What would you like to do?:
+Enter the current value of the dollar:
+Enter the amount in bs:
+Your
+bs are also approximately
+On week
+, uploaded at
+, you saved
+You're
+ or
+short of
+Press any key to continue
+Congratulations! You've surpassed the
+$ with an extra of
+No savings have been uploaded
+All records will be deleted and the program will start from the ground up
+Are you sure about this decision?
+Y/N
+of the month
+of this month
+Please start the program on day
+The program will exit in...
+Please wait a week to upload the savings once more

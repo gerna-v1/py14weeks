@@ -10,7 +10,9 @@ La primera vez que se abra el programa creara los archivos necesarios y se deber
 - ~~Habilitar funcionamiento del mes de febrero~~
 - ~~Agregar excepcion si no han pasado mas de 7 dias desde la última carga~~
 - ~~Agregar guia para el usuario~~ (IMPORTANTE REHACER)
-- Arreglar que no se pueda cargar si se han pasado los 7 dias? (es dificil y no vale la pena)
+- ~~Arreglar que no se pueda cargar si se han pasado los 7 dias? (es dificil y no vale la pena)~~ (SE LOGRÓ)
 - ~~Utilizar paths para mejor organización de archivos~~ (SE LOGRÓ)
-- Agregar script para eliminar todos los registros y empezar desde 0
-- Implementar funcion que le pida al usuario si quiere usar el programa en español o inglés
+- ~~Agregar script para eliminar todos los registros y empezar desde 0~~
+- ~~Implementar funcion que le pida al usuario si quiere usar el programa en español o inglés~~
+
+- EXTRA: Agregar opcion para saber si el usuario quiere usarlo en modo estricto o modo flexible (solamente una semana después o se cuentan los días posteriores)

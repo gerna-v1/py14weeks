@@ -1,0 +1,19 @@
+El programa empieza a funcionar el dia en el que se carga por primera vez, esperando que se cargue el primer dia
+
+Permite subir el dinero que has ahorrado durante la semana, en dolares y bolivares, teniendo en cuenta una meta
+
+Solo se puede cargar una semana despues de subir el anterior, asi que pon una alarma para recordarte!
+
+En cualquier momento se puede visualizar cuanto se ha cargado cada semana, sin embargo solo se puede editar una semana despues de la ultima carga
+
+Consejo: Empieza a utilizarlo (o utiliza la opcion 3 para que empiece en) un domingo para que todos los fines de semana empieces a cargar tus ahorros!
+
+This program begins the day it is opened for the first time
+
+It allows you to upload a record of how much you've saved over the week, both in bs and dollars, having a goal in mind.
+
+You may only upload a week after uploading the last savings, so set up an alarm!
+
+You can view at any moment the records for each week of saving, however you may only edit it a week after last upload
+
+Pro tip: Start using it (or use option 3 so it starts on) on a sunday so you keep track of how much you've spent over the whole week!
