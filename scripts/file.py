@@ -53,7 +53,7 @@ def contar(accion): #Agrega uno al contador global o retorna el valor actual
         if accion.lower() == 'contar':
             archivo = open(camino + 'cont.txt', 'r')
             lectura = archivo.readlines()
-            archivo.close
+            archivo.close()
 
             cont = int(lectura[0]) + 1
             archivo = open(camino + 'cont.txt', 'w')
@@ -64,19 +64,19 @@ def contar(accion): #Agrega uno al contador global o retorna el valor actual
             archivo = open(camino + 'cont.txt', 'r')
             lectura = archivo.readlines()
             cont = int(lectura[0])
-            archivo.close
+            archivo.close()
             if camino == '':
-                if os.path.exists('.\\data\\'):
+                if os.path.exists('.\\data\\') and os.path.exists('.\\data\\cont.txt'):
                     sobresc = open('.\\data\\cont.txt', 'w')
                     cont = 0
-                    sobresc.write(cont)
+                    sobresc.write(str(cont))
                     sobresc.close()
             return cont
 def ahorro(suma, accion): #Va sumando al archivo de ahorro o lee lo que se lleva
     if accion.lower() == 'escritura':
         archivo = open('.\\data\\ahorro.txt', 'r')
         lectura = archivo.readlines()
-        archivo.close
+        archivo.close()
 
         ahorro = int(lectura[0]) + int(suma)
         archivo = open('.\\data\\ahorro.txt', 'w')
@@ -86,7 +86,7 @@ def ahorro(suma, accion): #Va sumando al archivo de ahorro o lee lo que se lleva
         archivo = open('.\\data\\ahorro.txt', 'r')
         lectura = archivo.readlines()
         cont = int(lectura[0])
-        archivo.close
+        archivo.close()
         return cont
 ''''def semanal():
     if accion.lower() =='''

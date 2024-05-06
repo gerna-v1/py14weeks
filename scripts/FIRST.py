@@ -12,11 +12,11 @@ def primera(): #Funcion a ser usada cuando se inicia el codigo por primera vez
             escribir('fecha', True)
             archivo2 = open('.\\data\\ahorro.txt', 'w')
             archivo2.writelines(str(0))
-            archivo2.close
+            archivo2.close()
             contar('contar')
             archivo3 = open('.\\data\\tiempo.txt', 'x')
             escribir('tiempo', True)
-            archivo3.close
+            archivo3.close()
 
 
         except Exception as e:
@@ -36,11 +36,11 @@ def segunda(eleccion, meta):
         os.remove('cont.txt')
         archivo2 = open('.\\data\\eleccion.txt', 'w')
         archivo2.writelines(eleccion)
-        archivo2.close
+        archivo2.close()
 
         archivo3 = open('.\\data\\meta.txt', 'w')
         archivo3.writelines(str(meta))
-        archivo3.close
+        archivo3.close()
     except Exception as e:
         print(e)
 
@@ -49,6 +49,13 @@ def ultima():
         shutil.rmtree('.\\data')
         otravez = open('.\\cont.txt', 'w')
         otravez.writelines(str(-1))
-        otravez.close
+        otravez.close()
     except Exception as e:
+        otravez = open('.\\cont.txt', 'w')
+        otravez.writelines(str(-1))
+        otravez.close()
         print(e)
+
+def chequeo():
+    if os.path.exists('.\\data'):
+        shutil.rmtree('.\\data')

@@ -1,6 +1,7 @@
 import os, sys, time, logging
+from shutil import rmtree
 sys.path.append('scripts')
-from scripts.FIRST import primera, segunda, ultima
+from scripts.FIRST import primera, segunda, ultima, chequeo
 from scripts.tiempo import tiempoActual
 from scripts import file, horario
 
@@ -12,6 +13,7 @@ def language(option):
         file = open('.\\scripts\\lang.txt', 'r')
         read = file.readlines()
         idioma = []
+        file.close()
         mod = []
 
         cont = 1
@@ -29,6 +31,8 @@ def language(option):
         return mod
 
 if file.contar('retornar') == -1:
+
+    chequeo()
 
     while True:
         print('En qué idioma quiere utilizar el programa?\n')
@@ -54,7 +58,7 @@ if file.contar('retornar') == -1:
     else:
         mensaje = "What's your goal to achieve in $?"
         error = 'Please enter a number greater than 0'
-        erro2 = 'Please enter a number'
+        error2 = 'Please enter a number'
         salida = 'The program has been configured, please re-open it'
 
     while True:
@@ -90,6 +94,7 @@ def convertirReversa(precio, monto): #Dolares a bolivares
 def guia(idioma):
     file = open('.\\scripts\\guia.txt', 'r')
     read = file.readlines()
+    file.close()
     mod = []
     for line in read:
         if line not in mod:
@@ -123,7 +128,7 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, le
             diferencia = (diferenciaTemp - referencia)
         else:
             diferencia = (int(diaArchivo) + 7)
-            if (diaActual - diaArchivo) > 7:
+            if (int(diaActual) - int(diaArchivo)) > 7:
                 diferencia = diaActual
             hay = False
 
@@ -253,6 +258,7 @@ try:
             if file.contar('retornar') > 0:
                 lineas = open('.\\data\\semanas.txt', 'r')
                 array = lineas.readlines()
+                lineas.close()
                 mod = []
                 cont = 0
                 for line in array:
