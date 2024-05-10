@@ -15,7 +15,7 @@ def meses29(mes,ano):
         else:
             return '2'
 
-def comparacion(mes,ano='2024'):
+def comparacion(mes,ano='2025'):
     if meses31(int(mes)):
         resultado = 1 #resultado es 1 si el mes termina en 31
         return resultado

@@ -1,5 +1,4 @@
 import os, sys, time, logging
-from shutil import rmtree
 sys.path.append('scripts')
 from scripts.FIRST import primera, segunda, ultima, chequeo
 from scripts.tiempo import tiempoActual
@@ -30,6 +29,21 @@ def language(option):
             mod.append(idioma[i])
         return mod
 
+def guia(idioma):
+    file = open('.\\scripts\\guia.txt', 'r')
+    read = file.readlines()
+    file.close()
+    mod = []
+    for line in read:
+        if line not in mod:
+         mod.append(line.strip())
+    if idioma == '1':
+        rango = 0
+    else:
+        rango = 10
+    for i in range (rango,rango+9):
+        print(mod[i])
+
 if file.contar('retornar') == -1:
 
     chequeo()
@@ -52,21 +66,35 @@ if file.contar('retornar') == -1:
     limpiar()
     if eleccion == '1':
         mensaje = 'Cual es tu monto a alcanzar en $?'
+        key = 'Presione cualquier tecla para continuar'
         error = 'Por favor ingrese un número mayor a 0'
         error2 = 'Por favor ingrese un número'
         salida = 'La aplicacion se ha configurado, por favor iniciela de nuevo'
+        mensaje2 = 'Elija un modo de carga \n\n1.Modo Estricto: Modo donde solo se puede cargar el ahorro una semana después de cargar el anterior\n (p.e: Si cargas un lunes, solo puedes cargar el próximo lunes)\n\n2.Modo Flexible: Modo donde puedes cargar el próximo ahorro incluso después de una semana de cargado el ahorro anterior\n (p.e: Si subes un martes puedes subir el próximo ahorro todos los días que le siguen al próximo martes (incluyendo el martes) )'
     else:
         mensaje = "What's your goal to achieve in $?"
+        key = 'Press any key to continue'
         error = 'Please enter a number greater than 0'
         error2 = 'Please enter a number'
         salida = 'The program has been configured, please re-open it'
+        mensaje2 = 'Please choose an upload mode\n\n1. Strict mode: You can only upload a week after uploading the previous savings\n (i.e: If uploaded on a monday, you can only upload next monday)\n\n2. Flexible mode: You can upload even a week after you have uploaded previous settings\n (i.e: If uploaded on a wednesday you can upload the next savings all following days to (including) the next wednesday) '
 
     while True:
         try:
+            guia(eleccion)
+            input('\n' + key  +'\n')
             while True:
                 print(mensaje)
                 meta = int(input())
                 if meta >= 0:
+                    while True:
+                        limpiar()
+                        print('\n' + mensaje2 + '\n')
+                        configuracion = int(input('1/2:'))
+                        if configuracion == 1 or configuracion == 2:
+                            break
+                        else:
+                            continue
                     break
                 else:
                     print(error)
@@ -74,7 +102,7 @@ if file.contar('retornar') == -1:
         except ValueError:
             print(error2)
     print(salida)
-    segunda(eleccion, meta)
+    segunda(eleccion, meta, configuracion)
     time.sleep(7)
     sys.exit()
 
@@ -91,21 +119,7 @@ def convertir(precio, monto): #Bolivares a dolares
 def convertirReversa(precio, monto): #Dolares a bolivares
     dolares = precio * monto
     return dolares
-def guia(idioma):
-    file = open('.\\scripts\\guia.txt', 'r')
-    read = file.readlines()
-    file.close()
-    mod = []
-    for line in read:
-        if line not in mod:
-         mod.append(line.strip())
-    if idioma == '1':
-        rango = 0
-    else:
-        rango = 10
-    for i in range (rango,rango+9):
-        print(mod[i])
-def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, lenguaje, escribir=True): #Guarda una nueva semana si se accede una semana despues de la última carga
+def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, lenguaje, modo, escribir=True): #Guarda una nueva semana si se accede una semana despues de la última carga
 
     if not (diaActual == diaArchivo and mesActual == mesArchivo):
 
@@ -123,17 +137,30 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, le
             hay = True
         else:
             referencia = 0
-        if mesActual != mesArchivo:
-            diferenciaTemp = (int(diaArchivo) + 7)
-            diferencia = (diferenciaTemp - referencia)
-        else:
-            diferencia = (int(diaArchivo) + 7)
-            if (int(diaActual) - int(diaArchivo)) > 7:
-                diferencia = diaActual
-            hay = False
+
+        if modo == '2': # si el modo es flexible
+            if mesActual != mesArchivo:
+                if (mesActual - mesArchivo) < 2:
+                    diferencia = ((diaActual + referencia) - diaArchivo) + 1
+                    if diferencia >= 7:
+                        diferencia = diaActual
+                else:
+                    diferencia = diaActual
+            else:
+                diferencia = (int(diaArchivo) + 7)
+                if (int(diaActual) - int(diaArchivo)) >= 7:
+                    diferencia = diaActual
+                hay = False
+        elif modo == '1': # si el modo es estricto
+            if mesActual != mesArchivo:
+                diferenciaTemp = (int(diaArchivo) + 7)
+                diferencia = (diferenciaTemp - referencia)
+            else:
+                diferencia = (int(diaArchivo) + 7)
+                hay = False
 
         if escribir==True:
-            if (diferencia == diaActual) or (diferencia > diaActual):
+            if (diferencia == diaActual):
                 # SI EL DIA ACTUAL ESTA SEPARADO POR 7 DIAS DEL DIA GUARDADO, SE GUARDA UNA NUEVA SEMANA EN SEMANAS
                 file.escribir('fecha', True) # Se sobreescribe la fecha guardada
                 archivo = open('.\\data\\semanas.txt', 'r')
@@ -158,14 +185,14 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, le
         else:
             if not (diferencia == diaActual):
                 if hay:
-                    mes = (lenguaje[23] + str(mesActual)) #MUESTRA EL MES MALO, ARREGLAR URGENTEMENTE
+                    mes = (lenguaje[23] + ' ' + str(mesActual)) #MUESTRA EL MES MALO, ARREGLAR URGENTEMENTE
                 else:
                     mes = lenguaje[24]
                 limpiar()
                 print(lenguaje[25] + ' ' + str(diferencia) + ' ' + mes)
-                print(lenguaje[26] + '\n')
+                print(lenguaje[26])
                 for i in range (10,0,-1):
-                    print(i,)
+                    print(i)
                     time.sleep(1)
                 sys.exit()
     else:
@@ -181,6 +208,10 @@ def matematica(diaActual, diaArchivo, mesActual, mesArchivo, mesRef, dolares, le
 # empieza el algoritmo
 try:
     opcion = 0
+    tempModo = open('.\\data\\modo.txt')
+    modo1 = tempModo.readlines()
+    modo = modo1[0]
+    tempModo.close()
 
     temp1 = open('.\\data\\eleccion.txt')
     eleccion = temp1.readlines()
@@ -212,7 +243,7 @@ try:
             tiemp = file.leer('tiempo', True)
             cont = 0
 
-            matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1], temp2[2]), 0, texto, False)
+            matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1], temp2[2]), 0, texto, modo, False)
 
             limpiar()
             ahorrado = file.ahorro(0, 'lectura')
@@ -225,8 +256,7 @@ try:
 
 
             if file.contar('retornar') > 0:
-                rotar = matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1], temp2[2]), dolares, texto, True)
-
+                rotar = matematica(temp[0], temp2[0], temp[1], temp2[1], horario.comparacion(temp2[1], temp2[2]), dolares, texto, modo, True)
                 if rotar:
                     sys.exit()
                 for i in range(0,2):
